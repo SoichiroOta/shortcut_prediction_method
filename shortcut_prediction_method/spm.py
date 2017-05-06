@@ -92,8 +92,7 @@ class ShortcutPrediction(object):
         top_and_bottom_ids = pd.Series(np.array(top_and_bottom_ids), index = index)
         return top_and_bottom_ids
 
-    def embedding_dimension(self):
-        delay_time = 2
+    def embedding_dimension(self, delay_time):
         deltas = (self.top_and_bottom_values() - self.top_and_bottom_values().shift(1)).dropna()
         data_frame = pd.DataFrame(deltas, index = deltas.index)
         previous_deimension_data_frame = data_frame
@@ -115,8 +114,7 @@ class ShortcutPrediction(object):
             if fnn_count == 0:
                 return i + 2
 
-    def predict(self):
-        delay_time = 2
+    def predict(self, delay_time):
         embedding_dimension = self.embedding_dimension()
         top_and_bottom_values = self.top_and_bottom_values()
         top_and_bottom_ids = self.top_and_bottom_ids()
